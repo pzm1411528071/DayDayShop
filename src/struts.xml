@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+  <package name="common" namespace="/" extends="struts-default">
+    <action name="productIndex" class="web.action.common.ProductAction" method="productIndex">
+      <result name="success" type="dispatcher">/index.jsp</result>
+    </action>
+    <action name="productCategoryList" class="web.action.common.ProductAction" method="productCategoryList">
+    <!-- 使用了AJAX就去掉result且方法返回类型设置为void -->
+    </action>
+    <action name="productListByCid" class="web.action.common.ProductAction" method="productListByCid">
+      <result name="success" type="dispatcher">/product_list.jsp</result>
+    </action>
+    <action name="productSearchWord" class="web.action.common.ProductAction" method="productSearchWord">
+    </action>
+    <action name="productAddProductToCart" class="web.action.common.ProductAction" method="productAddProductToCart">
+      <result name="success" type="redirect">/cart.jsp</result>
+      <result name="error" type="dispatcher">/product_info.jsp</result>
+    </action>
+    <action name="productInfo" class="web.action.common.ProductAction" method="productInfo">
+      <result name="success" type="dispatcher">/product_info.jsp</result>
+    </action>
+    <action name="delProFromCart" class="web.action.common.ProductAction" method="delProFromCart">
+      <result name="success" type="redirect">/cart.jsp</result>
+    </action>
+    <action name="productClearCart" class="web.action.common.ProductAction" method="productClearCart">
+      <result name="success" type="redirect">/cart.jsp</result>
+    </action>
+  
+    <action name="userLogout" class="web.action.common.UserAction" method="userLogout">
+      <result name="success" type="redirect">/login.jsp</result>
+    </action>
+    <action name="userCheckCode" class="web.action.common.UserAction" method="userCheckCode">
+    <!-- 不需要跳转进入其他页面 -->
+    </action>
+    <action name="userLoginChangeCheckCode" class="web.action.common.UserAction" method="userLoginChangeCheckCode">
+      <result name="success" type="dispatcher">/login.jsp</result>
+    </action>
+    <action name="userLogin" class="web.action.common.UserAction" method="userLogin">
+      <result name="success" type="redirect">/productIndex</result>
+      <result name="error" type="dispatcher">/login.jsp</result>
+    </action>
+    <action name="checkUsername" class="web.action.common.UserAction" method="checkUsername">
+    </action>
+    <action name="userRegisterChangeCheckCode" class="web.action.common.UserAction" method="userRegisterChangeCheckCode">
+      <result name="success" type="dispatcher">/register.jsp</result>
+    </action>
+    <action name="userRegister" class="web.action.common.UserAction" method="userRegister">
+      <result name="success" type="dispatcher">/registerSuccess.jsp</result>
+      <result name="error1" type="dispatcher">/register.jsp</result>
+      <result name="error2" type="redirect">/registerFail.jsp</result>
+    </action>
+    <action name="userActive" class="web.action.common.UserAction" method="userActive">
+      <result name="success" type="redirect">/login.jsp</result>
+    </action>
+  
+    <action name="login" class="web.action.common.AdminAction" method="login">
+      <result name="success" type="redirect">/admin/home.jsp</result>
+      <result name="error" type="dispatcher">/admin/index.jsp</result>
+    </action>
+    <!-- 放入公共部分,否则无法回调进入网站 -->
+    <action name="callback" class="web.action.common.CallbackAction" method="callback">
+      <!-- 第三方支付平台回调至服务器不需配置跳转 -->
+    </action>
+  </package>
+  
+  <package name="privilege" namespace="/" extends="struts-default">
+    <action name="productMyOrders" class="web.action.privilege.ProductAction" method="productMyOrders">
+      <result name="success" type="dispatcher">/order_list.jsp</result>
+    </action>
+    <action name="productSubmitOrder" class="web.action.privilege.ProductAction" method="productSubmitOrder">
+      <result name="success" type="dispatcher">/order_info.jsp</result>
+    </action>
+    <action name="productConfirmOrder" class="web.action.privilege.ProductAction" method="productConfirmOrder">
+      <!-- 由于重定向到第三方支付平台携带参数过多直接不返回字符串 -->
+    </action>
+    
+    <action name="adminFindAllCategoryUI" class="web.action.privilege.AdminAction" method="adminFindAllCategoryUI">
+      <result name="success" type="dispatcher">/admin/category/list.jsp</result>
+    </action>
+    <action name="adminFindAllProduct" class="web.action.privilege.AdminAction" method="adminFindAllProduct">
+      <result name="success" type="dispatcher">/admin/product/list.jsp</result>
+    </action>
+    <action name="adminFindAllOrders" class="web.action.privilege.AdminAction" method="adminFindAllOrders">
+      <result name="success" type="dispatcher">/admin/order/list.jsp</result>
+    </action>
+    <action name="adminAddCategory" class="web.action.privilege.AdminAction" method="adminAddCategory">
+      <result name="success" type="redirect">/adminFindAllCategoryUI</result>
+    </action>
+    <action name="adminUpdateCategory" class="web.action.privilege.AdminAction" method="adminUpdateCategory">
+      <result name="success" type="redirect">/adminFindAllCategoryUI</result>
+    </action>
+    <action name="adminDelCategoryByCid" class="web.action.privilege.AdminAction" method="adminDelCategoryByCid">
+      <result name="success" type="redirect">/adminFindAllCategoryUI</result>
+    </action>
+    <action name="adminFindOrderInfoByOid" class="web.action.privilege.AdminAction" method="adminFindOrderInfoByOid">
+    </action>
+    <action name="adminFindAllCategory" class="web.action.privilege.AdminAction" method="adminFindAllCategory">
+    </action>
+    <action name="adminAddProduct" class="web.action.privilege.AdminAction" method="adminAddProduct">
+      <result name="success" type="redirect">/adminFindAllProduct</result>
+    </action>
+    <action name="adminUpdateProduct" class="web.action.privilege.AdminAction" method="adminUpdateProduct">
+      <result name="success" type="redirect">/adminFindAllProduct</result>
+    </action>
+    <action name="adminDelProductByPid" class="web.action.privilege.AdminAction" method="adminDelProductByPid">
+      <result name="success" type="redirect">/adminFindAllProduct</result>
+    </action>
+    <action name="adminSearchProductList" class="web.action.privilege.AdminAction" method="adminSearchProductList">
+      <result name="success" type="dispatcher">/admin/product/list.jsp</result>
+    </action>
+    <action name="adminUpdateProductUI" class="web.action.privilege.AdminAction" method="adminUpdateProductUI">
+      <result name="success" type="dispatcher">/admin/product/edit.jsp</result>
+    </action>
+  </package>
+</struts>
